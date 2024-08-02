@@ -17,26 +17,26 @@ In the folder 'SQL' you will find the files that show the database script, the m
 ![ncbi_db_p](https://github.com/user-attachments/assets/2f869eca-aa7c-4298-a7a7-8c794da172f5)
 
 ### Brief Description of Files
-#### numos_27.py
-**class NCBI_auto_updates()**
+**numos_27.py**
+class NCBI_auto_updates()
 - It checks NCBI (ncbi.nlm.nih.gov), using their command-line interface, for any new genomes that are not in our existing collection on our local computer. 
 - If it finds new data, it checks for and handles duplicates, downloads the new data, then writes a CSV to be used in the inheriting class.
 - A text file is written with a log of each update, a record of changes, successes, failures.
 - An archive of the last metadata file you had before the update is created.
 
-**class parse_upload()**
+class parse_upload()
 - Inherits the list of successfully downloaded data from the parent class NCBI_auto_updates(). *(Is not set up to inherit the list at the time of upload due to time-constraints but will be updated soon.)*
 - Writes the data we need to the MySQL database.
 
-**class adams_gff_gen**
+class adams_gff_gen
 - Written by my advisor and PHD student Adam Rosso to make it easier to get the data from the gffs. (Converts them to a dictionary like the json package does)
 
 *once the process is properly streamlined, the numos_27.py file can be made into an executable using pyinstaller to auto-update*
 
-#### dataframes.py
+**dataframes.py**
 - Takes information from SQL to be further analyzed and/or graphed in python.
 
-#### window_variation.py
+**window_variation.py**
 - Used to determine most and least variable genomes by GC content amongst 100kb windows.
 
 # Analysis
