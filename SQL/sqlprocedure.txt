@@ -1,0 +1,80 @@
+ALL PRODECURES FOR DATA ANALYSIS WILL BE SIMILAR TO THIS
+
+
+-- USE ncbi;
+ -- DROP PROCEDURE IF EXISTS igs_gc;
+-- DELIMITER //
+-- CREATE PROCEDURE igs_gc() 
+-- BEGIN
+-- 	DECLARE seq LONGTEXT;
+-- 	DECLARE id VARCHAR(45);
+--     DECLARE done BOOL DEFAULT false;
+-- 	DECLARE gc_cursor CURSOR FOR 
+-- 	SELECT igs_id, (SELECT SUBSTR(chromosomes.chrom_seq, igs_seq_start, (SELECT igs_seq_end - igs_seq_start FROM chromosomes LIMIT 1))) AS seq FROM intergenic_seq
+-- 	JOIN chromosomes on chromosomes.chrom_id = intergenic_seq.chrom_id;
+-- 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = true;
+--     DROP TEMPORARY TABLE IF EXISTS igs_analysis;
+--     CREATE TEMPORARY TABLE igs_analysis (seq_len INT UNSIGNED, GCcontent FLOAT);
+-- 	OPEN gc_cursor;
+--     
+--     content: LOOP
+--         FETCH gc_cursor INTO id, seq;
+-- 		IF done = true THEN 
+-- 			LEAVE content;
+-- 		END IF;
+--         SET @seq_len = char_length(seq);
+--         SET @seq_N = (@seq_len - char_length(REPLACE(seq, 'N', ''))) / @seq_len;
+--         SET @seq_G = @seq_len - char_length(REPLACE(seq, 'G', ''));
+--         SET @seq_C = @seq_len - char_length(REPLACE(seq, 'C', ''));
+-- 		   SET @gc = (@seq_G + @seq_C) / (@seq_len - @seq_N);
+--         IF @seq_N < .5 THEN
+--              INSERT INTO igs_analysis(seq_len, GCcontent) VALUES (@seq_len, @gc);
+--  	   END IF;
+-- 	END LOOP;
+-- CLOSE gc_cursor;
+-- END //
+-- DELIMITER ;
+
+-- call igs_gc;
+
+
+
+HERES ONE FOR FLANKING THAT I HAVENT TESTED YET
+
+-- USE ncbi;
+--  -- DROP PROCEDURE IF EXISTS flank_gc;
+-- DELIMITER //
+-- CREATE PROCEDURE flank_gc() 
+-- BEGIN
+-- 	DECLARE seq LONGTEXT;
+-- 	DECLARE id VARCHAR(45);
+--     DECLARE done BOOL DEFAULT false;
+-- 	DECLARE gc_cursor CURSOR FOR 
+-- 	SELECT genes.gene_id, flanking_seq.flank_id, (SELECT CONCAT((SELECT SUBSTR(chromosomes.chrom_seq, flanking_seq.up_start, (SELECT flanking_seq.up_end- flanking_seq.up_start FROM chromosomes LIMIT 1))), 
+--     (SELECT SUBSTR(chromosomes.chrom_seq, flanking_seq.down_start, (SELECT flanking_seq.down_stop - flanking_seq.down_start FROM chromosomes LIMIT 1))))) AS concat_flank FROM Flanking_seq
+--     JOIN chromosomes on chromosomes.chrom_id = flanking_seq.chrom_id
+--     JOIN genes on genes.gene_id = flanking_seq.gene_id;
+-- 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = true;
+--     DROP TEMPORARY TABLE IF EXISTS flank_analysis;
+--     CREATE TEMPORARY TABLE flank_analysis (gene_id VARCHAR(45), GCcontent FLOAT);
+-- 	OPEN gc_cursor;
+--     
+--     content: LOOP
+--         FETCH gc_cursor INTO id, seq;
+-- 		IF done = true THEN 
+-- 			LEAVE content;
+-- 		END IF;
+--         SET @seq_len = char_length(seq);
+--         SET @seq_N = (@seq_len - char_length(REPLACE(seq, 'N', ''))) / @seq_len;
+--         SET @seq_G = @seq_len - char_length(REPLACE(seq, 'G', ''));
+--         SET @seq_C = @seq_len - char_length(REPLACE(seq, 'C', ''));
+-- 		   SET @gc = (@seq_G + @seq_C) / (@seq_len - @seq_N);
+--         IF @seq_N < .5 THEN
+--              INSERT INTO flank_analysis(gene_id, GCcontent) VALUES (@seq_len, @gc);
+--  	   END IF;
+-- 	END LOOP;
+-- CLOSE gc_cursor;
+-- END //
+-- DELIMITER ;
+
+-- call flank_gc;
