@@ -69,13 +69,13 @@ class adams_gff_gen
 
 
 # Issues:
-The data we are using is very large. Working with 'big data' like this was, and still is, a learning curve for optimization. Including all of the different sized windows we want drastically increases the upload time to something unreasonable. Downloading to a csv for bulk insert isn't much faster.
-The GFF files we used are very heterogenous and have no regulations for creation or explanations of the data. This code was written specifically to tackle the issues we could see with our 20 genomes and may need changing for any expansions or change of taxon. Examples of these issues include:
--different naming conventions for the headers Ex:'assembly_info' vs 'assemblyInfo'
--different parents among regions for the gffs, making it harder to connect exons to genes. Ex: An exon could have an 'mrna', 'gene', or 'ID' parent.
--different lengths and conventions of IDs
--some have no names for the chromosomes
--the data had no direct relation to the chromosome it belonged to besides ocurring after it in the file- this requires us to iterate line-by-line, which is slower than       simple recursion.
+- The data we are using is very large. Working with 'big data' like this was, and still is, a learning curve for optimization. Including all of the different sized windows we want drastically increases the upload time to something unreasonable. Downloading to a csv for bulk insert isn't much faster.
+- The GFF files we used are very heterogenous and have no regulations for creation or explanations of the data. This code was written specifically to tackle the issues we could see with our 20 genomes and may need changing for any expansions or change of taxon. Examples of these issues include:
+  - different naming conventions for the headers Ex:'assembly_info' vs 'assemblyInfo'
+  - different parents among regions for the gffs, making it harder to connect exons to genes. Ex: An exon could have an 'mrna', 'gene', or 'ID' parent.
+  - different lengths and conventions of IDs
+  - some have no names for the chromosomes
+  - the data had no direct relation to the chromosome it belonged to besides ocurring after it in the file- this requires us to iterate line-by-line, which is slower than       simple recursion.
   
   
   
