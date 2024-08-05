@@ -52,7 +52,7 @@ class adams_gff_gen()
 ### General Process
 - Data was matched to its relatives with the established MySQL relationships and basic joins. Sub-sequences were cut from the main chromosome sequence with the coordinates given in or calculated from the GFF.
 - Stored procedures for various desired analyses assignined variables, created temmporary tables, and used loops to calculate GC content (Number of 'G' and 'C' per sequence  divided by the length of the sequence minus any 'N' content, which is 'unknown').
-- Data was taken from temporary tables and queries and converted to Pandas dataframes for further analysis and visualizion.
+- Data was taken from temporary tables and queries and converted to Pandas dataframes for further analysis and visualization.
 
 ### Vizualization
 This set of boxplots represents GC content for the intergenic sequences of the most variable and least variable genomes, respectively. Variability was determined by the average standard deviation for GC content per 100kb window (window_variation.py).
