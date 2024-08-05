@@ -30,7 +30,7 @@ class parse_upload()
 - Parses information given in the GFF.
 - Writes the data we need to the MySQL database.
 
-class adams_gff_gen
+class adams_gff_gen()
 - Written by my advisor and PHD student Adam Rosso to make it easier to get the data from the gffs. (Converts them to a dictionary like the json package does)
 
 *once the process is properly streamlined, the numos_27.py file can be made into an executable using pyinstaller to auto-update*
