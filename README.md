@@ -46,6 +46,8 @@ class adams_gff_gen
 - include descriptions of how things were calculated, what we did with n content, our definitions, etc. 
 
 This set of graphs represents GC content for the intergenic sequences of the most variable and least variable genomes, respectively. Variability was determined by the average standard deviation for GC content per 100kb window (window_variation.py).
+The sequences were put into 10 bins based on length. As you can see, there is an inverse relationship with GC content and sequence length. 
+(The mean lines are included as dotted lines)
 ![Screenshot 2024-08-03 143832](https://github.com/user-attachments/assets/10e39419-17d7-4387-b3c7-1d6eda1def99)
 
 ![Screenshot 2024-08-03 144629](https://github.com/user-attachments/assets/8efbd252-b7df-4429-97e3-3972bc21aff1)
