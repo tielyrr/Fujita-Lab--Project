@@ -80,7 +80,6 @@ def igs_analysis(a_id): #takes a little too long to complete the first query...
     ax.set_xlabel(f'Bins ({b} kb)')
     ax.set_ylabel('GC content %')
     ax.set_title(f'GC Content by Intergenic Sequence Length, {a_id}')
-    plt.xticks(rotation=90)
     plt.show()
 
 
