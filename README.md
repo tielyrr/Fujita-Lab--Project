@@ -11,9 +11,9 @@ Our DNA, made of 'Adenine - Thymine' and 'Cytosine - Guanine' pairs, is constant
 Studying Squamates is of interest to the Fujita Lab because the Green Anole (Squamate), upon sequencing, was found to have less variability in GC content than other vertebrates. This suggests there may be a novel relationship in Squamates to maintain GC content. Our goals are to study diversity of GC content in Squamates amongst themselves, and in relation to vertebrates
 
 ## Data
-### GFF
-- Text data organized line-by-line, around 0.1GB in size. They consist of annotations for its respective FNA: string coordinates, IDs and various other information for all identified genes, chromosomes, exons, etc.
-### FNA
+### .gff Files
+- Text data organized line-by-line, around 0.1GB in size. Consists of annotations for its respective FNA: string coordinates, IDs and various other information for all identified genes, chromosomes, exons, etc.
+### .fna Files
 - Text data organized line-by-line, around 2GB in size. Consists of a line to describe each chromosome or scaffold, then the sequence in successive lines of 80 characters.
 
 We dealt with 21 genomes.
