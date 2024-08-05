@@ -18,6 +18,7 @@ In the folder 'SQL' you will find the files that show the database script, the m
 
 ### Brief Description of Files
 **numos_27.py**
+
 class NCBI_auto_updates()
 - It checks NCBI (ncbi.nlm.nih.gov), using their command-line interface, for any new genomes that are not in our existing collection on our local computer. 
 - If it finds new data, it checks for and handles duplicates, downloads the new data, then writes a CSV to be used in the inheriting class.
@@ -25,7 +26,8 @@ class NCBI_auto_updates()
 - An archive of the last metadata file you had before the update is created.
 
 class parse_upload()
-- Inherits the list of successfully downloaded data from the parent class NCBI_auto_updates(). *(Is not set up to inherit the list at the time of upload due to time-constraints but will be updated soon.)*
+- Takes a given list of genomes and calculates the sequence coordinates for introns, windows, intergenic sequences, and flanking sequences.
+- Parses information given in the GFF.
 - Writes the data we need to the MySQL database.
 
 class adams_gff_gen
@@ -40,12 +42,13 @@ class adams_gff_gen
 - Used to determine most and least variable genomes by GC content amongst 100kb windows.
 
 # Analysis
-- A preliminary analysis was required to show that the project was a success.
+- A preliminary analysis to show that the project was a success.
 - include descriptions of how things were calculated, what we did with n content, our definitions, etc. 
 
+This set of graphs represents GC content for the intergenic sequences of the most variable and least variable genomes, respectively. Variability was determined by the average standard deviation for GC content per 100kb window (window_variation.py).
+![Screenshot 2024-08-03 143832](https://github.com/user-attachments/assets/10e39419-17d7-4387-b3c7-1d6eda1def99)
 
-
-
+![Screenshot 2024-08-03 144629](https://github.com/user-attachments/assets/8efbd252-b7df-4429-97e3-3972bc21aff1)
 
 
 
@@ -57,7 +60,7 @@ class adams_gff_gen
 ## Requirements and Assumptions for the script to run:
 - This version was written for MacOS High Sierra
 - You must have the NCBI 'datasets' command-line interface downloaded and in your PATH. https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/ (add instructions for how to put in path - on mac)
-- You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata must be moved to the previous folder. This may be changed in the future.
+- You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata must be moved to the previous folder.
 - This script was written for annotated genomes with the gff3 files. 
 - This script was written for genomes with a chromosome-level assembly
 
@@ -70,12 +73,12 @@ class adams_gff_gen
 
 # Issues:
 - The data we are using is very large. Working with 'big data' like this was, and still is, a learning curve for optimization. Including all of the different sized windows we want drastically increases the upload time to something unreasonable. Downloading to a csv for bulk insert isn't much faster.
-- The GFF files we used are very heterogenous and have no regulations for creation or explanations of the data. This code was written specifically to tackle the issues we could see with our 20 genomes and may need changing for any expansions or change of taxon. Examples of these issues include:
-  - different naming conventions for the headers Ex:'assembly_info' vs 'assemblyInfo'
-  - different parents among regions for the gffs, making it harder to connect exons to genes. Ex: An exon could have an 'mrna', 'gene', or 'ID' parent.
-  - different lengths and conventions of IDs
-  - some have no names for the chromosomes
-  - the data had no direct relation to the chromosome it belonged to besides ocurring after it in the file- this requires us to iterate line-by-line, which is slower than       simple recursion.
+- The GFF files we used are very heterogenous; this code was written specifically to tackle the issues we could see with our 20 genomes and may need changing for any expansions or change of taxon. Examples of these issues include:
+  - Different naming conventions for the headers Ex:'assembly_info' vs 'assemblyInfo.'
+  - Different parents among regions for the gffs, making it harder to connect exons to genes. Ex: An exon could have an 'mrna', 'gene', or 'ID' parent.
+  - Different lengths and conventions of IDs.
+  - Some have no names for the chromosomes, causing datatype mismatches in MySQL.
+  - The data had no direct relation to the chromosome it belonged to besides ocurring after it in the file- this requires us to iterate line-by-line, which is slow.
   
   
   
@@ -85,6 +88,6 @@ class adams_gff_gen
 # Future Work:
 - Streamline the process of updating, downloading, uploading, and data analysis to one executable that works on GFFs with different formats. The files are currently separate.
 - This code was written, to the best of my ability, with RAM and speed in mind. The program is still quite slow and I believe that the speed could be improved upon.
-- Use BUSCO for annotations rather than the heterogenous, complicated, and unreliable GFFs
-- Find a way to quickly get windows information written to sql
-- Fix bug in class parse_upload() functions: igs, introns
+- Use BUSCO for annotations rather than the GFFs for more reliable and uniform data.
+- Find a way to quickly get window information written to sql.
+- Fix bug in class parse_upload() functions: igs, introns.
