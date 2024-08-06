@@ -551,9 +551,9 @@ class parse_upload(): #will write our new data to sql!
         #complete above before making the igs, we are now working with the edited list
                 
         j = 0 
-        if len(self.exon_ss) > 1: #if there is more than one gene, so at least one seq
+        if len(self.exon_ss) > 1: #if there is more than one exon, so at least one seq
             for index, i in enumerate(self.exon_ss):
-                if index < len(self.exon_ss)-1: #if its not the last gene
+                if index < len(self.exon_ss)-1: #if its not the last exon
                     start = int(i[1])+1
                     next_ex = self.exon_ss[index+1]
                     stop = int(next_ex[0]) - 1 
