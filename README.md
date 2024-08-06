@@ -68,7 +68,7 @@ Modeled after this paper: https://pubmed.ncbi.nlm.nih.gov/21795750/
 
 ## Requirements and Assumptions for the script to run
 - This version was written for MacOS High Sierra
-- You must have the NCBI 'datasets' command-line interface downloaded and in your PATH. https://www.ncbi.nlm.nih.gov/datasets/docs/v2/download-and-install/ (add instructions for how to put in path - on mac)
+- You must have the NCBI 'datasets' command-line interface downloaded and in your PATH. Instructions for adding to your PATH are under the 'Code' folder --> 'add_cli_to_PATH.txt'.
 - You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata must be moved to the previous folder.
 - This script was written for annotated genomes with the gff3 files. 
 - This script was written for genomes with a chromosome-level assembly
