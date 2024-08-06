@@ -473,9 +473,9 @@ class parse_upload(): #will write our new data to sql!
                         indices.append(y) #add index of the overlapping gene
                         y = y + 1 #go to the next gene (if i is gene B, we just tested gene c, so test start coord of gene d now)
                         r.extend(list([i for i in range(self.gene_ss[y-1][0], int(self.gene_ss[y-1][1] +1))])) #add the numbers for the range of the gene we just tested (c) to the running list
-                        if y <= len(self.exon_ss) -1:
-                            next_start_coord = self.exon_ss[y][0]   #look ahead to the next one
-                        else: #if looking ahead doesnt lead to finding a non overlapping exon before the list ends
+                        if y <= len(self.gene_ss) -1:
+                            next_start_coord = self.gene_ss[y][0]   #look ahead to the next one
+                        else: #if looking ahead doesnt lead to finding a non overlapping gene before the list ends
                             break
                     coords = [i for index, i in enumerate(self.gene_ss) if index in indices] #get the values if the indexes
                     coords = list(itertools.chain.from_iterable(coords)) #concatenates the list so we can easily get min and max
