@@ -1,0 +1,8 @@
+
+TO ADD DATASETS TO $PATH: (make sure it is in a separate folder in your home directory)
+echo "export PATH=\${PATH}:<path to your folder with 'datasets'>" >> ~/.zshrc
+
+Example:
+
+"export PATH=\${PATH}:/Users/self/ncbi_cli >> ~/.zshrc
+
