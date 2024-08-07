@@ -1,5 +1,6 @@
 # Fujita-Lab--Project
 Updated summation of the work completed for the Fujita Lab at the University of Texas at Arlington in the Summer of 2024. Reference for any PhD students looking to replicate or modify any methods.
+
 Contact info for any questions: tyler.dixon.b@gmail.com
 
 ### Purpose and Goals
@@ -25,33 +26,35 @@ In the folder 'SQL' you will find the files that show the database script, the m
 ![ncbi_db_p](https://github.com/user-attachments/assets/2f869eca-aa7c-4298-a7a7-8c794da172f5)
 
 ### Brief Description of Files
-**numos_27.py**
+**numos.py** *(stands for ncbi updates macOS)*
 
 class NCBI_auto_updates()
 - It checks NCBI (ncbi.nlm.nih.gov), using their command-line interface, for any new genomes that are not in our existing collection on our local computer. 
-- If it finds new data, it checks for and handles duplicates, downloads the new data, then writes a CSV to be used in the inheriting class.
+- If it finds new data, it checks for and handles duplicates, downloads the new data, then writes a CSV for easy-viewing and access to file paths.
 - A text file is written with a log of each update, a record of changes, successes, and failures.
 - An archive of the last metadata file you had before the update is saved.
+- A text file 'data_to_upload.txt' with the list of data to be uploaded  to MySQL is created to be used in the next class.
 
 class parse_upload()
+- Reads 'data_to_upload.txt' into a list, then accesses the file paths in the CSV with those accession numbers.
 - Calculates and writes the data we need from the GFFs and FNAs to the MySQL database as it iterates through each GFF line-by-line.
 
 class adams_gff_gen()
-- Written by my advisor and PHD student Adam Rosso to make it easier to get the data from the gffs. (Converts them to a dictionary like the 'json' python package does)
+- Written by my advisor and PHD student Adam Rosso to make it easier to get the data from the gffs. *(Converts them to a dictionary like the 'json' python package does.)*
 
-*Once the process is properly streamlined, the numos_27.py file can be made into an executable using pyinstaller to auto-update*
+This script is set using MacOS Crontab to run every Sunday at 11pm. https://theautomatic.net/2020/11/18/how-to-schedule-a-python-script-on-a-mac/
 
 **dataframes.py**
 - Takes information from MySQL to be further analyzed and/or graphed in python.
 
 **window_variation.py**
 - Used to determine most and least variable genomes by GC content amongst 100kb windows.
-- **Data** folder was derived from this script for quick use in future analyses. 
+- **Data** folder was derived from this script for quick use in future analyses. Contains all of the genomes and chromosome IDs we used. 
 
 # Analysis
 ### General Process
-- Data was matched to its relatives with the established MySQL relationships and basic joins. Sub-sequences were cut from the main chromosome sequence with the coordinates given in or calculated from the GFF.
-- Stored procedures for various desired analyses assignined variables, created temmporary tables, and used loops to calculate GC content (Number of 'G' and 'C' per sequence  divided by the length of the sequence minus any 'N' content, which is 'unknown').
+- Data was matched to its relatives with the established MySQL relationships, basic joins, and subqueries. Sub-sequences were cut from the main chromosome sequence with the coordinates given in or calculated from the GFF.
+- Stored procedures for various desired analyses: assignined variables, created temporary tables, and used loops to calculate GC content (Number of 'G' and 'C' per sequence  divided by the length of the sequence minus any 'N' content, which is 'unknown').
 - Data was taken from temporary tables and queries and converted to Pandas dataframes for further analysis and visualization.
 
 ### Vizualization
@@ -69,14 +72,14 @@ Modeled after this paper: https://pubmed.ncbi.nlm.nih.gov/21795750/
 ## Requirements and Assumptions for the script to run
 - This version was written for MacOS High Sierra
 - You must have the NCBI 'datasets' command-line interface downloaded and in your PATH. Instructions for adding to your PATH are under the 'Code' folder --> 'add_cli_to_PATH.txt'.
-- You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata must be moved to the previous folder.
+- You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata(renamed as <taxon>.jsonl) must be moved to the previous folder.
 - This script was written for annotated genomes with the gff3 files. 
 - This script was written for genomes with a chromosome-level assembly
 
 
 
 ## Changes that must be made to the script for it to run for you
-- Open the script and adjust the paths indicated in the box at the very top. 
+- Open the script and adjust the paths indicated in the comment boxes before each class.
 - Any deviations from the original purpose (different database design, different taxa, different genomes, no annotations, etc.) will require edits. 
 
 
@@ -92,8 +95,8 @@ Modeled after this paper: https://pubmed.ncbi.nlm.nih.gov/21795750/
 
 
 # Future Work
-- Streamline the process of updating, downloading, uploading, and data analysis to one executable that works on GFFs with different formats. The files are currently separate.
 - This code was written, to the best of my ability, with RAM and speed in mind. The program is still quite slow and I believe that the speed could be improved upon.
 - Use BUSCO for annotations rather than the GFFs for more reliable and uniform data.
-- Find a way to quickly get window information written to sql.
-- Fix bug in class parse_upload() functions: igs, introns.
+- Find a way to quickly get window information written to sql. Adding windows of 3kb, 10kb, 50kb, and 500kb exponentially raised the process time, so we only included the 100kb windows for now.
+- Tying in with the previous point, find a way to do the initial bulk upload of data quickly and efficiently, possibly with a bulk insert.
+- Fix small bug in class parse_upload() functions: igs, introns. Leaves small bits of invalid data that is insignificant to our analyses, but it would be nice to not have to delete them.
