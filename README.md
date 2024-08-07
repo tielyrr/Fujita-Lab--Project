@@ -23,7 +23,8 @@ We dealt with 21 genomes.
 ### MySQL Database Design
 In the folder 'SQL' you will find the files that show the database script, the model file, and the stored procedures we used to analyze the data. 
 
-![ncbi_db_p](https://github.com/user-attachments/assets/2f869eca-aa7c-4298-a7a7-8c794da172f5)
+![db3pic](https://github.com/user-attachments/assets/97fbadc4-7178-4582-9f33-c4489871c34b)
+
 
 ### Brief Description of Files
 **numos.py** *(stands for ncbi updates macOS)*
