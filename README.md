@@ -68,7 +68,8 @@ Modeled after this paper: https://pubmed.ncbi.nlm.nih.gov/21795750/
 
 ![Screenshot 2024-08-07 222120](https://github.com/user-attachments/assets/48a83182-e993-4d84-88b1-ad855436d1fe)
 
-
+This is a density plot for both genomes and their GC content by window. 
+![image](https://github.com/user-attachments/assets/c7b58fde-22b9-4898-b2ea-ece9d6721c8f)
 
 
 ## Requirements and Assumptions for the script to run
