@@ -36,3 +36,38 @@ END //
 DELIMITER ;
 
 -- call igs_gc;
+
+
+
+-- DROP PROCEDURE IF EXISTS wind_gc;
+-- DELIMITER //
+-- CREATE PROCEDURE wind_gc()  -- accession id
+-- BEGIN
+-- 	DECLARE seq LONGTEXT;
+-- 	DECLARE id VARCHAR(45);
+--     DECLARE done BOOL DEFAULT false;
+-- 	DECLARE gc_cursor CURSOR FOR 
+-- 	SELECT windows.accession_id, (SELECT SUBSTR(chromosomes.chrom_seq, wind_seq_start, (SELECT wind_seq_end - wind_seq_start FROM chromosomes LIMIT 1))) AS seq FROM windows
+-- 	JOIN chromosomes on chromosomes.chrom_id = windows.chrom_id;
+-- 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = true;
+--     DROP TEMPORARY TABLE IF EXISTS wind_analysis;
+--     CREATE TEMPORARY TABLE wind_analysis (a_id VARCHAR(30), GCcontent FLOAT);
+-- 	OPEN gc_cursor;
+--     
+--     content: LOOP
+--         FETCH gc_cursor INTO id, seq;
+-- 		IF done = true THEN 
+-- 			LEAVE content;
+-- 		END IF;
+--         SET @seq_len = char_length(seq);
+--         SET @seq_N = (@seq_len - char_length(REPLACE(seq, 'N', ''))) / @seq_len;
+--         SET @seq_G = @seq_len - char_length(REPLACE(seq, 'G', ''));
+--         SET @seq_C = @seq_len - char_length(REPLACE(seq, 'C', ''));
+-- 		   SET @gc = (@seq_G + @seq_C) / (@seq_len - @seq_N);
+--         IF @seq_N < .5 THEN
+--              INSERT INTO wind_analysis(a_id, GCcontent) VALUES (id, @gc);
+--  	   END IF;
+-- 	END LOOP;
+-- CLOSE gc_cursor;
+-- END //
+-- DELIMITER ;
