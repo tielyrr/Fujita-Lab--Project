@@ -30,11 +30,11 @@ In the folder 'SQL' you will find the files that show the database script, the m
 **numos.py** *(stands for ncbi updates macOS)*
 
 class NCBI_auto_updates()
-- It checks NCBI (ncbi.nlm.nih.gov), using their command-line interface, for any new genomes that are not in our existing collection on our local computer. 
+- Checks NCBI (ncbi.nlm.nih.gov), using their command-line interface, for any new genomes that are not in the existing collection on our local computer. 
 - If it finds new data, it checks for and handles duplicates, downloads the new data, then writes a CSV for easy-viewing and access to file paths.
 - A text file is written with a log of each update, a record of changes, successes, and failures.
 - An archive of the last metadata file you had before the update is saved.
-- A text file 'data_to_upload.txt' with the list of data to be uploaded  to MySQL is created to be used in the next class.
+- A text file 'data_to_upload.txt' with the list of data to be uploaded to MySQL is created to be used in the next class.
 
 class parse_upload()
 - Reads 'data_to_upload.txt' into a list, then accesses the file paths in the CSV with those accession numbers.
@@ -54,9 +54,9 @@ This script is set using MacOS Crontab to run every Sunday at 11pm. https://thea
 
 # Analysis
 ### General Process
-- Data was matched to its relatives with the established MySQL relationships, basic joins, and subqueries. Sub-sequences were cut from the main chromosome sequence with the coordinates given in or calculated from the GFF.
-- Stored procedures for various desired analyses: assignined variables, created temporary tables, and used loops to calculate GC content (Number of 'G' and 'C' per sequence  divided by the length of the sequence minus any 'N' content, which is 'unknown').
-- Data was taken from temporary tables and queries and converted to Pandas dataframes for further analysis and visualization.
+- Data is matched to its relatives with the established MySQL relationships, basic joins, and subqueries. Sub-sequences are 'cut' from the main chromosome sequence with the coordinates given in or calculated from the GFF.
+- Stored procedures for various desired analyses assign variables, create temporary tables, and use loops to calculate GC content (Number of 'G' and 'C' per sequence  divided by the length of the sequence minus any 'N' content, which is 'unknown').
+- Data is taken from temporary tables and queries and converted to Pandas dataframes for further analysis and visualization.
 
 ### Vizualization
 This set of boxplots represents GC content for the intergenic sequences of the most variable and least variable genomes, respectively. Variability was determined by the average standard deviation for GC content per 100kb window (window_variation.py).
@@ -86,7 +86,7 @@ Modeled after this paper: https://pubmed.ncbi.nlm.nih.gov/21795750/
 
 
 # Issues
-- The data we are using is very large. Working with 'big data' like this was, and still is, a learning curve for optimization. Including all of the different sized windows we want drastically increases the upload time to something unreasonable. Downloading to a csv for bulk insert isn't much faster.
+- Working with 'big data' like this was, and still is, a learning curve for optimization. Including all of the different sized windows we want drastically increases the upload time to something unreasonable. Downloading to a .csv for bulk insert isn't much faster.
 - The GFF files we used are very heterogenous; this code was written specifically to tackle the issues we could see with our 20 genomes and may need changing for any expansions or change of taxon. Examples of these issues include:
   - Different naming conventions for the headers Ex:'assembly_info' vs 'assemblyInfo.'
   - Different parents among regions for the gffs, making it harder to connect exons to genes. Ex: An exon could have an 'mrna', 'gene', or 'ID' parent.
