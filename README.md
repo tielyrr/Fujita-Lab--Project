@@ -60,13 +60,14 @@ This script is set using MacOS Crontab to run every Sunday at 11pm. https://thea
 
 ### Vizualization
 This set of boxplots represents GC content for the intergenic sequences of the most variable and least variable genomes, respectively. Variability was determined by the average standard deviation for GC content per 100kb window (window_variation.py).
-The sequences were put into 10 bins based on length. As you can see, there is an inverse relationship with GC content and sequence length. 
+The sequences were put into 10 bins based on length. 
 (The mean lines are included as dotted lines)
 
 Modeled after this paper: https://pubmed.ncbi.nlm.nih.gov/21795750/
-![Screenshot 2024-08-03 143832](https://github.com/user-attachments/assets/10e39419-17d7-4387-b3c7-1d6eda1def99)
+![Screenshot 2024-08-07 222537](https://github.com/user-attachments/assets/51b9030a-415b-4f84-98e6-a9c44d6deaf6)
 
-![Screenshot 2024-08-03 144629](https://github.com/user-attachments/assets/8efbd252-b7df-4429-97e3-3972bc21aff1)
+![Screenshot 2024-08-07 222120](https://github.com/user-attachments/assets/48a83182-e993-4d84-88b1-ad855436d1fe)
+
 
 
 
