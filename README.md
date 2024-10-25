@@ -29,21 +29,14 @@ In the folder 'SQL' you will find the files that show the database script, the m
 ### Brief Description of Files
 **numos.py** *(stands for ncbi updates macOS)*
 
-class NCBI_auto_updates()
 - Checks NCBI (ncbi.nlm.nih.gov), using their command-line interface, for any new genomes that are not in the existing collection on our local computer. 
 - If it finds new data, it checks for and handles duplicates, downloads the new data, then writes a CSV for easy-viewing and access to file paths.
 - A text file is written with a log of each update, a record of changes, successes, and failures.
 - An archive of the last metadata file you had before the update is saved.
 - A text file 'data_to_upload.txt' with the list of data to be uploaded to MySQL is created to be used in the next class.
 
-class parse_upload()
-- Reads 'data_to_upload.txt' into a list, then accesses the file paths in the CSV with those accession numbers.
-- Calculates and writes the data we need from the GFFs and FNAs to the MySQL database as it iterates through each GFF line-by-line.
-
-class adams_gff_gen()
-- Written by my advisor and PHD student Adam Rosso to make it easier to get the data from the gffs. *(Converts them to a dictionary like the 'json' python package does.)*
-
-This script is set using MacOS Crontab to run every Sunday at 11pm. https://theautomatic.net/2020/11/18/how-to-schedule-a-python-script-on-a-mac/
+- Reads data_to_upload.txt, then accesses the file paths in the CSV with those accession numbers.
+- Calculates and writes the data we need from the GFFs and FNAs to the MySQL database utilizing bulk inserts.
 
 **dataframes.py**
 - Takes information from MySQL to be further analyzed and/or graphed in python.
