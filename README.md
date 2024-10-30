@@ -87,6 +87,4 @@ This is a density plot for both genomes and their GC content by window.
 # Future Work
 - This code was written, to the best of my ability, with RAM and speed in mind. I believe some optimization could improve the speed.
 - Use BUSCO for annotations rather than the GFFs for more reliable and uniform data.
-- Find a way to quickly get window information written to sql. Adding windows of 3kb, 10kb, 50kb, and 500kb exponentially raised the process time, so we only included the 100kb windows for now.
-- Tying in with the previous point, find a way to do the initial bulk upload of data quickly and efficiently, possibly with a bulk insert.
 - Fix small bug in class parse_upload() functions: igs, introns. Leaves small bits of invalid data that is insignificant to our analyses, but it would be nice to not have to delete them.
