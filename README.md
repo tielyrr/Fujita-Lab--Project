@@ -81,18 +81,11 @@ This is a density plot for both genomes and their GC content by window.
 
 
 # Issues
-- Working with 'big data' like this was, and still is, a learning curve for optimization. Including all of the different sized windows we want drastically increases the upload time to something unreasonable. Downloading to a .csv for bulk insert isn't much faster.
-- The GFF files we used are very heterogenous; this code was written specifically to tackle the issues we could see with our 20 genomes and may need changing for any expansions or change of taxon. Examples of these issues include:
-  - Different naming conventions for the headers Ex:'assembly_info' vs 'assemblyInfo.'
-  - Different parents among regions for the gffs, making it harder to connect exons to genes. Ex: An exon could have an 'mrna', 'gene', or 'ID' parent.
-  - Different lengths and conventions of IDs.
-  - Some have no names for the chromosomes, causing datatype mismatches in MySQL.
-  - The data had no direct relation to the chromosome it belonged to besides ocurring after it in the file- this requires us to iterate line-by-line, which is slow.
+- I am in the process of editing the script to make up for heterogeneity in the gff files.
   
 
-
 # Future Work
-- This code was written, to the best of my ability, with RAM and speed in mind. The program is still quite slow and I believe that the speed could be improved upon.
+- This code was written, to the best of my ability, with RAM and speed in mind. I believe some optimization could improve the speed.
 - Use BUSCO for annotations rather than the GFFs for more reliable and uniform data.
 - Find a way to quickly get window information written to sql. Adding windows of 3kb, 10kb, 50kb, and 500kb exponentially raised the process time, so we only included the 100kb windows for now.
 - Tying in with the previous point, find a way to do the initial bulk upload of data quickly and efficiently, possibly with a bulk insert.
