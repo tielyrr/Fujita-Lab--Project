@@ -1,0 +1,78 @@
+CREATE DATABASE ncbi;
+USE ncbi;
+CREATE TABLE Species (accession_id VARCHAR(30) PRIMARY KEY UNIQUE NOT 
+NULL, PendingData CHAR(1) NOT NULL DEFAULT 'N', CommonName VARCHAR(60) NOT NULL DEFAULT 'none', Family VARCHAR(60) 
+NOT NULL DEFAULT 'unknown',
+Genus VARCHAR(60) NOT NULL DEFAULT 'unknown', Species VARCHAR(60) NOT 
+NULL DEFAULT 'unknown', 
+Sex CHAR(1) NOT NULL DEFAULT 'U', Mass DOUBLE, 
+Lifespan DOUBLE, check(Sex IN ('U', 'M', 'F','H')));
+
+CREATE TABLE Chromosomes (chrom_id VARCHAR(100) PRIMARY KEY UNIQUE NOT 
+NULL, PendingData CHAR(1) NOT NULL DEFAULT 'N', chrom_name VARCHAR(30) NOT NULL, chrom_seq LONGTEXT NOT NULL, 
+chrom_seq_start INT UNSIGNED NOT NULL, chrom_seq_end INT UNSIGNED NOT 
+NULL, accession_id VARCHAR(30) NOT NULL, FOREIGN KEY (accession_id) 
+REFERENCES Species(accession_id) ON DELETE CASCADE);
+
+CREATE TABLE Windows (wind_id VARCHAR(45) PRIMARY KEY UNIQUE NOT NULL, 
+wind_seq_start INT UNSIGNED NOT NULL, wind_seq_end INT UNSIGNED NOT NULL, gene_count INT UNSIGNED NOT NULL,
+accession_id VARCHAR(30) NOT NULL, chrom_id VARCHAR(100) NOT NULL, 
+FOREIGN KEY (accession_id) REFERENCES Species(accession_id) ON DELETE 
+CASCADE,
+FOREIGN KEY (chrom_id) REFERENCES Chromosomes(chrom_id) ON DELETE 
+CASCADE);
+
+CREATE TABLE Genes (gene_id VARCHAR(100) PRIMARY KEY UNIQUE NOT NULL, gene_strand VARCHAR(1) NOT NULL,      
+gene_seq_start INT UNSIGNED NOT NULL, gene_seq_end INT UNSIGNED NOT NULL,
+accession_id VARCHAR(30) NOT NULL, chrom_id VARCHAR(100) NOT NULL, 
+FOREIGN KEY (accession_id) REFERENCES Species(accession_id) ON DELETE 
+CASCADE,
+FOREIGN KEY (chrom_id) REFERENCES Chromosomes(chrom_id) ON DELETE 
+CASCADE);
+
+CREATE TABLE Intergenic_seq (igs_id VARCHAR(45) PRIMARY KEY UNIQUE NOT 
+NULL, igs_seq_start INT UNSIGNED NOT NULL, igs_seq_end INT UNSIGNED NOT 
+NULL,
+accession_id VARCHAR(30) NOT NULL, chrom_id VARCHAR(100) NOT NULL,
+FOREIGN KEY (accession_id) REFERENCES 
+Species(accession_id) ON DELETE CASCADE,
+FOREIGN KEY (chrom_id) REFERENCES Chromosomes(chrom_id) ON DELETE 
+CASCADE);
+
+CREATE TABLE Flanking_seq (flank_id VARCHAR(45) PRIMARY KEY UNIQUE NOT 
+NULL, flank_strand VARCHAR(1) NOT NULL, up_start INT UNSIGNED NOT NULL, up_stop INT UNSIGNED NOT NULL,
+down_start INT UNSIGNED NOT NULL, down_stop INT UNSIGNED NOT NULL,
+accession_id VARCHAR(30) NOT NULL, chrom_id VARCHAR(100) NOT NULL, 
+gene_id VARCHAR(100) NOT NULL, FOREIGN KEY (accession_id) REFERENCES 
+Species(accession_id) ON DELETE CASCADE,
+FOREIGN KEY (chrom_id) REFERENCES Chromosomes(chrom_id) ON DELETE 
+CASCADE, FOREIGN KEY (gene_id) REFERENCES Genes(gene_id) ON DELETE 
+CASCADE);
+
+CREATE TABLE Introns (intron_id VARCHAR(45) PRIMARY KEY UNIQUE NOT 
+NULL, intron_strand VARCHAR(1) NOT NULL, intron_seq_start INT UNSIGNED NOT NULL, intron_seq_end INT UNSIGNED 
+NOT NULL, 
+accession_id VARCHAR(30) NOT NULL, chrom_id VARCHAR(100) NOT NULL, 
+gene_id VARCHAR(100) NOT NULL, FOREIGN KEY (accession_id) REFERENCES 
+Species(accession_id) ON DELETE CASCADE,
+FOREIGN KEY (chrom_id) REFERENCES Chromosomes(chrom_id) ON DELETE 
+CASCADE, FOREIGN KEY (gene_id) REFERENCES Genes(gene_id) ON DELETE 
+CASCADE);
+
+CREATE TABLE Exons (exon_id VARCHAR(100) PRIMARY KEY UNIQUE NOT NULL, exon_strand VARCHAR(1) NOT NULL,
+exon_seq_start INT UNSIGNED NOT NULL, exon_seq_end INT UNSIGNED NOT NULL,
+accession_id VARCHAR(30) NOT NULL, chrom_id VARCHAR(100) NOT NULL, 
+gene_id VARCHAR(100) NOT NULL, FOREIGN KEY (accession_id) REFERENCES 
+Species(accession_id) ON DELETE CASCADE,
+FOREIGN KEY (chrom_id) REFERENCES Chromosomes(chrom_id) ON DELETE 
+CASCADE, FOREIGN KEY (gene_id) REFERENCES Genes(gene_id) ON DELETE 
+CASCADE);
+
+CREATE TABLE CDS (cds_id VARCHAR(100) PRIMARY KEY UNIQUE NOT NULL, cds_strand VARCHAR(1) NOT NULL,
+cds_seq_start INT UNSIGNED NOT NULL, cds_seq_end INT UNSIGNED NOT NULL,
+accession_id VARCHAR(30) NOT NULL, chrom_id VARCHAR(100) NOT NULL, 
+gene_id VARCHAR(100) NOT NULL, FOREIGN KEY (accession_id) REFERENCES 
+Species(accession_id) ON DELETE CASCADE,
+FOREIGN KEY (chrom_id) REFERENCES Chromosomes(chrom_id) ON DELETE 
+CASCADE, FOREIGN KEY (gene_id) REFERENCES Genes(gene_id) ON DELETE 
+CASCADE);
