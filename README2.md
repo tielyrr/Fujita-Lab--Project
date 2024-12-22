@@ -38,6 +38,8 @@ To communicate findings effectively, I created:
 - **Density Plots**: Showcasing genome-wide GC distribution trends, offering insights into selection pressures and evolutionary dynamics.
 ![image](https://github.com/user-attachments/assets/c7b58fde-22b9-4898-b2ea-ece9d6721c8f)
 
+Modeled after this paper: https://pubmed.ncbi.nlm.nih.gov/21795750/
+
 ## Challenges and Achievements
 
 ### Tackling Data Heterogeneity
