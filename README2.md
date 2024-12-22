@@ -53,6 +53,8 @@ This project provided the Fujita Lab with:
 
 Looking ahead, I proposed optimizing database performance, and refining error-handling mechanisms to enhance analysis accuracy.
 
+--- 
+##  About
 ## Requirements and Assumptions for the script to run
 - This version was written for MacOS High Sierra
 - You must have the NCBI 'datasets' command-line interface downloaded and in your PATH. Instructions for adding to your PATH are under the 'Code' folder --> 'add_cli_to_PATH.txt'.
@@ -63,14 +65,14 @@ Looking ahead, I proposed optimizing database performance, and refining error-ha
 - Open the script and adjust the paths indicated in the comment boxes before each class.
 - Any deviations from the original purpose (different database design, different taxa, different genomes, no annotations, etc.) will require edits.
 
-## File Description
+## File Descriptions
 ### Code
 **numos** uses the ncbi command-line interface to compare the computer's local database to the cloud. It automatically updates the local and MySQL databases with new genome releases from NCBI, avoiding duplicates and ensuring consistent metadata tracking. It then utilizes shell commands to parse and search the downloaded .gff and .fna files for desired information, uploads the information to the MySQL database. 
 **dataframes** takes information from MySQL to be further analyzed and/or graphed in python.
 **window_variation** determined most and least variable genomes by GC content amongst 100kb windows.
 
 ### SQL
-Contains all of the text needed to recreate the database. 
+Folder contains all of the text needed to recreate the database. 
 
 ### Data
 Folder was derived from this script for quick use in future analyses. Contains all of the genomes and chromosome IDs we used. 
