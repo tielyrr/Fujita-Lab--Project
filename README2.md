@@ -20,9 +20,10 @@ I developed a robust MySQL database to manage the large-scale genomic data effic
 
 ### Analytical Process
 Using Python and SQL, I designed scripts to:
-- Extract and process data from genome files.
-- Calculate GC content for various genomic regions using efficient algorithms.
-- Organize results into query-ready formats for visualization and reporting.
+- Extract, process, and upload data from genome files.
+- Data is matched to its relatives with the established MySQL relationships, basic joins, and subqueries. Sub-sequences are 'cut' from the main chromosome sequence with the coordinates given in or calculated from the GFF.
+- Stored procedures for various desired analyses assign variables, create temporary tables, and use loops to calculate GC content (Number of 'G' and 'C' per sequence  divided by the length of the sequence minus any 'N' content, which is 'unknown').
+- Data is taken from temporary tables and queries and converted to Pandas dataframes for further analysis and visualization.
 
 Key analyses included:
 - **Variability Assessments**: We used sliding window analyses to evaluate GC content standard deviation across 100kb regions, identifying the most and least variable genomes.
@@ -51,6 +52,31 @@ This project provided the Fujita Lab with:
 - Foundational insights into squamate GC content variability, sparking further research into evolutionary mechanisms.
 
 Looking ahead, I proposed optimizing database performance, and refining error-handling mechanisms to enhance analysis accuracy.
+
+## Requirements and Assumptions for the script to run
+- This version was written for MacOS High Sierra
+- You must have the NCBI 'datasets' command-line interface downloaded and in your PATH. Instructions for adding to your PATH are under the 'Code' folder --> 'add_cli_to_PATH.txt'.
+- You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata(renamed as <taxon>.jsonl) must be moved to the previous folder.
+- This script was written for annotated genomes with the gff3 files. 
+- This script was written for genomes with a chromosome-level assembly
+# Changes that must be made to the script for it to run for you
+- Open the script and adjust the paths indicated in the comment boxes before each class.
+- Any deviations from the original purpose (different database design, different taxa, different genomes, no annotations, etc.) will require edits.
+
+## File Description
+# Code
+**numos** uses the ncbi command-line interface to compare the computer's local database to the cloud. It automatically updates the local and MySQL databases with new genome releases from NCBI, avoiding duplicates and ensuring consistent metadata tracking. It then utilizes shell commands to parse and search the downloaded .gff and .fna files for desired information, uploads the information to the MySQL database. 
+**dataframes** takes information from MySQL to be further analyzed and/or graphed in python.
+**window_variation** determined most and least variable genomes by GC content amongst 100kb windows.
+
+# SQL
+Contains all of the text needed to recreate the database. 
+
+# Data
+Folder was derived from this script for quick use in future analyses. Contains all of the genomes and chromosome IDs we used. 
+
+# Revisions
+Archive for older versions of code. 
 
 ## Reflections
 Through this project, I gained invaluable experience in large-scale data management, analytical modeling, and cross-disciplinary collaboration. It reinforced my passion for using data to uncover patterns and drive impactful conclusions—skills I am eager to bring to future roles.
