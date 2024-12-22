@@ -54,6 +54,14 @@ This project provided the Fujita Lab with:
 Looking ahead, I proposed optimizing database performance, and refining error-handling mechanisms to enhance analysis accuracy.
 
 --- 
+## Reflections
+Through this project, I gained invaluable experience in large-scale data management, analytical modeling, and cross-disciplinary collaboration. It reinforced my passion for using data to uncover patterns and drive impactful conclusions—skills I am eager to bring to future roles.
+
+---
+
+Feel free to contact me at tyler.dixon.b@gmail.com for any questions or collaboration opportunities.
+
+--- 
 #  About
 ## Requirements and Assumptions for the script to run
 - This version was written for MacOS High Sierra
@@ -61,7 +69,7 @@ Looking ahead, I proposed optimizing database performance, and refining error-ha
 - You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata(renamed as <taxon>.jsonl) must be moved to the previous folder.
 - This script was written for annotated genomes with the gff3 files. 
 - This script was written for genomes with a chromosome-level assembly
-## Changes that must be made to the script for it to run for you
+### Changes that must be made to the script for it to run for you
 - Open the script and adjust the paths indicated in the comment boxes before each class.
 - Any deviations from the original purpose (different database design, different taxa, different genomes, no annotations, etc.) will require edits.
 
@@ -79,12 +87,3 @@ Folder was derived from this script for quick use in future analyses. Contains a
 
 ### Revisions
 Archive for older versions of code. 
-
----
-## Reflections
-Through this project, I gained invaluable experience in large-scale data management, analytical modeling, and cross-disciplinary collaboration. It reinforced my passion for using data to uncover patterns and drive impactful conclusions—skills I am eager to bring to future roles.
-
----
-
-Feel free to contact me at tyler.dixon.b@gmail.com for any questions or collaboration opportunities.
-
