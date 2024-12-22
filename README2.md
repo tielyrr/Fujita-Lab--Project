@@ -54,7 +54,7 @@ This project provided the Fujita Lab with:
 Looking ahead, I proposed optimizing database performance, and refining error-handling mechanisms to enhance analysis accuracy.
 
 --- 
-##  About
+#  About
 ## Requirements and Assumptions for the script to run
 - This version was written for MacOS High Sierra
 - You must have the NCBI 'datasets' command-line interface downloaded and in your PATH. Instructions for adding to your PATH are under the 'Code' folder --> 'add_cli_to_PATH.txt'.
@@ -80,6 +80,7 @@ Folder was derived from this script for quick use in future analyses. Contains a
 ### Revisions
 Archive for older versions of code. 
 
+---
 ## Reflections
 Through this project, I gained invaluable experience in large-scale data management, analytical modeling, and cross-disciplinary collaboration. It reinforced my passion for using data to uncover patterns and drive impactful conclusions—skills I am eager to bring to future roles.
 
