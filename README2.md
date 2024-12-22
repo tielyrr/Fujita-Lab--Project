@@ -59,23 +59,23 @@ Looking ahead, I proposed optimizing database performance, and refining error-ha
 - You must have a local collection of genomes already downloaded on your computer. The package must be unzipped and rehydrated. The folder with the genomes must only have the genomes, the data catalog and metadata(renamed as <taxon>.jsonl) must be moved to the previous folder.
 - This script was written for annotated genomes with the gff3 files. 
 - This script was written for genomes with a chromosome-level assembly
-# Changes that must be made to the script for it to run for you
+## Changes that must be made to the script for it to run for you
 - Open the script and adjust the paths indicated in the comment boxes before each class.
 - Any deviations from the original purpose (different database design, different taxa, different genomes, no annotations, etc.) will require edits.
 
 ## File Description
-# Code
+### Code
 **numos** uses the ncbi command-line interface to compare the computer's local database to the cloud. It automatically updates the local and MySQL databases with new genome releases from NCBI, avoiding duplicates and ensuring consistent metadata tracking. It then utilizes shell commands to parse and search the downloaded .gff and .fna files for desired information, uploads the information to the MySQL database. 
 **dataframes** takes information from MySQL to be further analyzed and/or graphed in python.
 **window_variation** determined most and least variable genomes by GC content amongst 100kb windows.
 
-# SQL
+### SQL
 Contains all of the text needed to recreate the database. 
 
-# Data
+### Data
 Folder was derived from this script for quick use in future analyses. Contains all of the genomes and chromosome IDs we used. 
 
-# Revisions
+### Revisions
 Archive for older versions of code. 
 
 ## Reflections
